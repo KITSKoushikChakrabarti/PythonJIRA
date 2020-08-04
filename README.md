@@ -13,3 +13,8 @@ You can also try pip install --user --upgrade jira which will install or upgrade
 # Documentation for Python JIRA API
 https://jira.readthedocs.io/en/latest/
 This documents the jira python package - a Python library designed to ease the use of the Jira REST API.
+
+# Also read the following
+https://pypi.org/project/atlassian-python-api/ (Using API to access JIRA, Confluence, Bitbucket, ServiceDesk)
+https://atlassian-python-api.readthedocs.io/  
+https://atlassian-python-api.readthedocs.io/confluence.html (Access Confluence pages & objects)
