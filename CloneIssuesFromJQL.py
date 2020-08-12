@@ -18,10 +18,20 @@ jql = input("\nEnter a JQL query in proper format: ")
 # run the JQL to get the resultset
 issueList = jira.search_issues(jql) 
 
+print("\nCount of issues from this JQL: ", len(issueList), '\n')
 
-print("\nCount of issues from this JQL: ", len(issueList))
-
+# ask which board the issues should be cloned into
+jql = input("\nEnter the JIRA Board or Project Name where the issues will be cloned: ")
 
 for issue in issueList:
-    print('Cloning [{}: {}]'.format(issue.key, issue.fields.summary))
-    
+    print('Cloning {}: {}'.format(issue.key, issue.fields.summary))
+    # for each issue perform the cloning action here
+    # newSummary = value.fields.summary
+    # newDesc = value.fields.description
+    # jiraType = value.fields.issuetype.name
+    # newAssignee= value.fields.assignee.name
+    # newPriority= value.fields.priority.name        
+    # newLabels = value.fields.labels        
+    # new_issue = jira.create_issue(project='DRRR', summary=newSummary, 
+    #     description=newDesc, issuetype={'name': jiraType}, assignee={'name': newAssignee},
+    #     priority= {'name': newPriority}, labels=newLabels)
