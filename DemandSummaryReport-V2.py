@@ -1,6 +1,6 @@
 
 # Developed by Koushik - Sep 2020
-# Purpose: Create Demand/Initiative summary report
+# Purpose: Create Demand/Initiative summary report - version 2 (improve performance)
 
 from jira import JIRA
 import getpass
@@ -20,7 +20,7 @@ jqlDemand = '"Parent Link"=' + jql;
 #epicList = jira.search_issues(jqlDemand) 
 
 # use this code to get more than 50 results in search issues in an interative loop
-block_size = 100
+block_size = 200
 block_num = 0
 cntEpicDone = 0
 cntEpicTotal = 0
@@ -42,13 +42,15 @@ while True:
         jqlEpic = '"Parent Link"=' + epic.key;    
         if(epic.fields.status.name == "Done"):
             cntEpicDone += 1 # save the epic done count for display
-        issueList = jira.search_issues(jqlEpic, 0, 100)
-        # print("Count of issues in this Epic: ", len(issueList), '\n')
+        
+        issueList = jira.search_issues(jqlEpic, 0, block_size)
+        issueDoneList = jira.search_issues(jqlEpic + ' AND status = Done', 0, block_size)
+        
         cntIssueTotal = len(issueList) # save the Issue Total for display        
-        cntIssueDone = 0
-        for issue in issueList:            
-            if(issue.fields.status.name == "Done"):
-                cntIssueDone += 1 # save the issue done count for display
+        cntIssueDone = len(issueDoneList) # save the Issue Done for display        
+        # for issue in issueList:            
+        #     if(issue.fields.status.name == "Done"):
+        #         cntIssueDone += 1 # save the issue done count for display
             # print('Issue: {}'.format(issue.key)) 
         try:
             percent = round(float(cntIssueDone/cntIssueTotal)*100,2);
