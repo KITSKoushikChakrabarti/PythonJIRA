@@ -44,9 +44,9 @@ while True:
             cntEpicDone += 1 # save the epic done count for display
         issueList = jira.search_issues(jqlEpic, 0, 100)
         # print("Count of issues in this Epic: ", len(issueList), '\n')
-        cntIssueTotal = len(issueList) # save the Issue Total for display
-        cntIssueDone = 0
+        cntIssueTotal = len(issueList) # save the Issue Total for display        
         for issue in issueList:
+            cntIssueDone = 0
             if(issue.fields.status.name == "Done"):
                 cntIssueDone += 1 # save the issue done count for display
             # print('Issue: {}'.format(issue.key)) 
