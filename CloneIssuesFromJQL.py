@@ -5,6 +5,21 @@
 from jira import JIRA
 import getpass
 
+## Use of Python Functions
+def CloneJIRAIssue(issue,projKey):
+    newSummary = issue.fields.summary # title 
+    # newSummary = newSummary.replace("Sonarqube","Nexus")  # modify if needed
+    newDesc = issue.fields.description # description 
+    jiraType = issue.fields.issuetype.name
+    newAssignee= issue.fields.assignee
+    newPriority= issue.fields.priority.name        
+    newLabels = issue.fields.labels        
+    new_issue = projKey + '-' + issue.key + '-001' # testing
+    # new_issue = jira.create_issue(project=projKey, summary=newSummary, 
+        # description=newDesc, issuetype={'name': jiraType}, assignee={'name': newAssignee},
+        # priority= {'name': newPriority}, labels=newLabels)    
+    return new_issue
+
 # login to JIRA using username and password
 print("----- This program clones JIRA issues from a given JQL query resultset ----- ")
 print("\nEnter credentials to login to JIRA:")
@@ -21,10 +36,12 @@ issueList = jira.search_issues(jql)
 print("\nCount of issues from this JQL: ", len(issueList), '\n')
 
 # ask which board the issues should be cloned into
-projectName = input("\nEnter the JIRA Board or Project Name where the issues will be cloned: ")
+projectKey = input("\nEnter the JIRA Board or Project Name where the issues will be cloned: ")
 
 for issue in issueList:
-    print('Cloning {}: {}'.format(issue.key, issue.fields.summary))
+    print('\nCloning {}: {}'.format(issue.key, issue.fields.summary))
+    newIssue = CloneJIRAIssue(issue, projectKey)   # functiona call with params
+    print('New Issue: ', newIssue)
     # for each issue perform the cloning action here
     # newSummary = value.fields.summary
     # newDesc = value.fields.description
@@ -32,6 +49,7 @@ for issue in issueList:
     # newAssignee= value.fields.assignee.name
     # newPriority= value.fields.priority.name        
     # newLabels = value.fields.labels        
-    # new_issue = jira.create_issue(project=projectName, summary=newSummary, 
+    # new_issue = jira.create_issue(project=projectKey, summary=newSummary, 
     #     description=newDesc, issuetype={'name': jiraType}, assignee={'name': newAssignee},
     #     priority= {'name': newPriority}, labels=newLabels)
+

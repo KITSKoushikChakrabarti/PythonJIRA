@@ -30,20 +30,20 @@ while issueID != '0':
     print("Assignee: ", issue.fields.assignee)  #assignee
     print("Priority: ", issue.fields.priority.name)  #priority
     print("Labels: ", ' '.join(issue.fields.labels))  #print list of labels
-
+    print("Benefits: ", str(issue.fields.customfield_15915))  # applicable for Initiative/Deliverables
     # custom fields
     #print(issue.fields.customfield_10000) #None
-    #print(issue.fields.customfield_10001) #None
-    print("Story Point: ", issue.fields.customfield_10002)  # Story Point as 1.0 or 2.0
+    #print(issue.fields.customfield_10001) #None    
     #print(issue.fields.customfield_10003)  #None
     #print(issue.fields.customfield_10004) #9223372036854775807
     #sprintObj = issue.fields.customfield_10005
     #print(sprintObj)
-    #   sprint_name = re.findall(r"name=[^,]*",
-        #                    str(issue.fields.customfield_10005[0]))
-    #   print("Sprint: ", str(sprint_name))  # sprint name
-    #   print("Epic: ", str(issue.fields.customfield_10006))  # Epic value DRRR-174
-    print("Benefits: ", str(issue.fields.customfield_15915))  # Epic value DRRR-174
+    if(issue.fields.issuetype.name == "Story"):
+        print("Story Point: ", issue.fields.customfield_10002)  # SP = 1.0/2.0 for stories, Returns None for Initiative/Deliverable/Epics
+        sprint_name = re.findall(r"name=[^,]*",str(issue.fields.customfield_10005[0]))
+        print("Sprint: ", str(sprint_name))  # sprint name
+        print("Epic: ", str(issue.fields.customfield_10006))  # Epic value DRRR-174
+
     #    print("Rawdata: ", issue.raw)
     print("-----------------------------------")
     #print(str(issue.fields.customfield_10007))

@@ -31,3 +31,22 @@ openIssues = jira.search_issues('project=DRRR and sprint not in closedSprints() 
                    maxResults=0, 
                    json_result=True)
 #print ('Total = ', openIssues.raw); raw
+
+# This script shows how to connect to a Jira instance with a
+# username and password over HTTP BASIC authentication.
+
+######### Get Top 3 issues natching results #############
+
+from collections import Counter
+from jira import JIRA
+jira = JIRA(basic_auth=("admin", "admin"))  # a username/password tuple
+
+# Get the mutable application properties for this server (requires
+# jira-system-administrators permission)
+props = jira.application_properties()
+
+# Find all issues reported by the admin
+issues = jira.search_issues("assignee=admin")
+
+# Find the top three projects containing issues reported by admin
+top_three = Counter([issue.fields.project.key for issue in issues]).most_common(3)
