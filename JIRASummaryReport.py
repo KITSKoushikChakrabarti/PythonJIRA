@@ -126,9 +126,10 @@ cntEpicDone = 0
 cntEpicTotal = 0
 cntIssueTotal = 0
 cntIssueDone = 0
+jqlSortOrder = ' ORDER BY Key ASC'    
 while issueID != '0':        
     start_idx = block_num*block_size
-    epicList = jira.search_issues(jqlDemand, start_idx, block_size)    
+    epicList = jira.search_issues(jqlDemand + jqlSortOrder, start_idx, block_size)    
     cntEpicTotal = len(epicList) # save the Epic Total for display
     if len(epicList) == 0:
         # Retrieve issues until there are no more to come
@@ -139,7 +140,7 @@ while issueID != '0':
         # print('ID: {}, Summary: {}'.format(epic.key, epic.fields.summary))
         # print("Status: ", epic.fields.status.name)  #status
         print('Child Issue: {}'.format(epic.key))        
-        jqlEpic = '"Parent Link"=' + epic.key;    
+        jqlEpic = '"Parent Link"=' + epic.key         
         if(epic.fields.status.name == "Done"):
             cntEpicDone += 1 # save the epic done count for display
         
@@ -148,8 +149,8 @@ while issueID != '0':
         html_str += "<td>" + epic.fields.summary + "</td>"
         html_str += "<td>" + epic.fields.status.name + "</td>"
         
-        issueList = jira.search_issues(jqlEpic, 0, block_size)
-        issueDoneList = jira.search_issues(jqlEpic + ' AND status = Done', 0, block_size)
+        issueList = jira.search_issues(jqlEpic + jqlSortOrder, 0, block_size)
+        issueDoneList = jira.search_issues(jqlEpic + ' AND status = Done' + jqlSortOrder, 0, block_size)
         
         cntIssueTotal = len(issueList) # save the Issue Total for display        
         cntIssueDone = len(issueDoneList) # save the Issue Done for display                

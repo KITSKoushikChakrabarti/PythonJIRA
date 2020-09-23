@@ -34,17 +34,17 @@ while issueID != '0':
     # custom fields
     #print(issue.fields.customfield_10000) #None
     #print(issue.fields.customfield_10001) #None
-    print("Story Point: ",
-          int(issue.fields.customfield_10002))  # Story Point as 1.0 or 2.0
+    print("Story Point: ", issue.fields.customfield_10002)  # Story Point as 1.0 or 2.0
     #print(issue.fields.customfield_10003)  #None
     #print(issue.fields.customfield_10004) #9223372036854775807
     #sprintObj = issue.fields.customfield_10005
     #print(sprintObj)
-    sprint_name = re.findall(r"name=[^,]*",
-                             str(issue.fields.customfield_10005[0]))
-    print("Sprint: ", str(sprint_name))  # sprint name
-    print("Epic: ", str(issue.fields.customfield_10006))  # Epic value DRRR-174
-#    print("Rawdata: ", issue.raw)
+    #   sprint_name = re.findall(r"name=[^,]*",
+        #                    str(issue.fields.customfield_10005[0]))
+    #   print("Sprint: ", str(sprint_name))  # sprint name
+    #   print("Epic: ", str(issue.fields.customfield_10006))  # Epic value DRRR-174
+    print("Benefits: ", str(issue.fields.customfield_15915))  # Epic value DRRR-174
+    #    print("Rawdata: ", issue.raw)
     print("-----------------------------------")
     #print(str(issue.fields.customfield_10007))
     #print(str(issue.fields.customfield_10008))

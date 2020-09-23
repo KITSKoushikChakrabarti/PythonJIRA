@@ -1,7 +1,7 @@
 import os
 from os import path
 
-filepath = os.getcwd() + "\\Reports1"
+filepath = os.getcwd() + "\\Reports"
 if(path.exists(filepath) == False):
    os.mkdir(filepath)
    print ("New folder created %s" % filepath)   
